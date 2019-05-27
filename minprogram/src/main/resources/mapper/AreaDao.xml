@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiangdong.minprogram.dao.AreaDao">
+    <select id="queryAreas" resultType="com.jiangdong.minprogram.entity.Area">
+        select area_id,area_name,priority,creare_time,last_edit_time from t_area order by priority desc
+    </select>
+    <select id="queryAreaById" resultType="com.jiangdong.minprogram.entity.Area">
+        select area_id,area_name,priority,creare_time,last_edit_time from t_area where area_id=#{areaId}
+    </select>
+    <select id="insertArea" parameterType="com.jiangdong.minprogram.entity.Area" resultType="Integer">
+        insert into t_area(area_name, priority, creare_time, last_edit_time) values (#{areaName},#{priority},#{createTime},#{lastEditTime})
+    </select>
+    <select id="updateArea" parameterType="com.jiangdong.minprogram.entity.Area">
+        update t_area
+        <set>
+            <if test="areaName!=null">area_name=#{areaName},</if>
+            <if test="priority!=null">priority=#{priority},</if>
+            <if test="lastEditTime!=null">last_edit_time=#{lastEditTime}</if>
+        </set>
+        where area_id=#{areaId}
+    </select>
+    <select id="deleteArea">
+        delete from t_area where area_id = #{areaId}
+    </select>
+</mapper>
